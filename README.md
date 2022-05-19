@@ -83,8 +83,8 @@ With `bert-base-cased`:
 
 # Considerations
 
-- This is the first alpha ever to support the M1 family of processors, so you should expect performance to increase further in the next months since many optimizations will be added to the MPS backed.
-- At the moment I experienced a progressive slowdown with MPS such that the first iteration took more than half the time than the last.
+- This is the first alpha ever to support the M1 family of processors, so you should expect performance to increase further in the next months since many optimizations will be added to the MPS backend.
+- At the moment, I experienced a progressive slowdown with MPS such that the first iteration took less than half the time than the last.
 - Before deciding whether the M1 Max could be your best choice, consider that it has no `float64` support and neither `fp16` tensor cores.
 - It seems that there is no real limit to the batch size with the M1 Max because it is able to use the swap also for the 'GPU' memory. However, this really slows down training.
 
