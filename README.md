@@ -31,6 +31,7 @@ pip install transformers datasets
 - M1 Max CPU 32GB: 10 cores, 2 efficient + 8 performance up to ~3GHz; Peak measured power consuption: `30W`.
 - M1 Max GPU 32GB: 32 cores; Peak measured power consuption: `41W`.
 - NVIDIA V100 16GB (SXM2): 5,120 CUDA cores + 640 tensor cores; Peak measured power consuption: `310W`.
+- Tesla T4 (using Google Colab Pro): Runtime settings: GPU & High RAM
 
 
 # Results
@@ -56,28 +57,28 @@ The following tables show the time needed to complete 100 steps without gradient
 
 With `bert-base-cased`:
 
-| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU (32GB) | V100 (16GB) |
-| ---------- | --------------- | ------------------- | ----------------- | ----------- |
-| 16         | 128             | 2m 29s              | 43s               | 12s         |
-| 64         | 128             | 8m 32s              | 90s               | 41s         |
-| 256        | 128             | 50m 10s             | 18m 1s            | -           |
-| 16         | 512             | 11m 22s             | 2m 20s            | 47s         |
-| 64         | 512             | 1h 21m 2s           | 26m 33s           | -           |
-| 256        | 512             | 6h 33m 7s           | 175m 4s           | -           |
+| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU (32GB) | V100 (16GB) | T4      |
+| ---------- | --------------- | ------------------- | ----------------- | ----------- |---------|
+| 16         | 128             | 2m 29s              | 43s               | 12s         |31s      |
+| 64         | 128             | 8m 32s              | 90s               | 41s         |2m       |
+| 256        | 128             | 50m 10s             | 18m 1s            | -           | -       |
+| 16         | 512             | 11m 22s             | 2m 20s            | 47s         |2m 25s   |
+| 64         | 512             | 1h 21m 2s           | 26m 33s           | -           |-        |
+| 256        | 512             | 6h 33m 7s           | 175m 4s           | -           |-        |
 
 
 ### Inference
 
 With `bert-base-cased`:
 
-| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU (32GB) | V100 (16GB) |
-| ---------- | --------------- | ----------------- | ----------------- | ----------- |
-| 16         | 128             | 52s               | 37s               | 4s          |
-| 64         | 128             | 3m 2s             | 43s               | 13s         |
-| 256        | 128             | 11m 25s           | 1m 45s            | 54s         |
-| 16         | 512             | 4m 22s            | 46s               | 16s         |
-| 64         | 512             | 17m 51s           | 2m 16s            | 1m 4s       |
-| 256        | 512             | 1h 10m 41s        | 7m 40s            | 4m 10s      |
+| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU (32GB) | V100 (16GB) | T4      |
+| ---------- | --------------- | ----------------- | ----------------- | ----------- |---------|
+| 16         | 128             | 52s               | 37s               | 4s          |10s      |
+| 64         | 128             | 3m 2s             | 43s               | 13s         |44s      |
+| 256        | 128             | 11m 25s           | 1m 45s            | 54s         |2m 52s   |
+| 16         | 512             | 4m 22s            | 46s               | 16s         |54s      |
+| 64         | 512             | 17m 51s           | 2m 16s            | 1m 4s       |3m 24s   |
+| 256        | 512             | 1h 10m 41s        | 7m 40s            | 4m 10s      |14m 18s  |
 
 
 
