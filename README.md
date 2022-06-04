@@ -31,6 +31,7 @@ pip install transformers datasets
 - M1 Max CPU 32GB: 10 cores, 2 efficient + 8 performance up to ~3GHz; Peak measured power consuption: `30W`.
 - M1 Max GPU 32GB: 32 cores; Peak measured power consuption: `46W`.
 - NVIDIA V100 16GB (SXM2): 5,120 CUDA cores + 640 tensor cores; Peak measured power consuption: `310W`.
+- Tesla T4 (using Google Colab Pro): Runtime settings: GPU & High RAM
 
 
 # Results
@@ -56,27 +57,26 @@ The following tables show the time needed to complete 100 steps without gradient
 
 **Training**:
 
-| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU (32GB) | V100 (16GB) |
-| ---------- | --------------- | ------------------- | ----------------- | ----------- |
-| 16         | 128             | 2m 29s              | 1m 3s             | 12s         |
-| 64         | 128             | 8m 32s              | 2m 57s            | 41s         |
-| 256        | 128             | 50m 10s             | 1h 49m 9s         | -           |
-| 16         | 512             | 11m 22s             | 9m 28s            | 47s         |
-| 64         | 512             | 1h 21m 2s           | 3h 26m 4s         | -           |
-| 256        | 512             | 6h 33m 7s           | -                 | -           |
+| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU (32GB) | V100 (16GB) | T4 (16GB) |
+| ---------- | --------------- | ------------------- | ----------------- | ----------- | --------- |
+| 16         | 128             | 2m 29s              | 1m 3s             | 12s         | 31s       |
+| 64         | 128             | 8m 32s              | 2m 57s            | 41s         | 2m        |
+| 256        | 128             | 50m 10s             | 1h 49m 9s         | -           | -         |
+| 16         | 512             | 11m 22s             | 9m 28s            | 47s         | 2m 25s    |
+| 64         | 512             | 1h 21m 2s           | 3h 26m 4s         | -           | -         |
+| 256        | 512             | 6h 33m 7s           | -                 | -           | -         |
 
 
 **Inference**:
 
-| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU (32GB) | V100 (16GB) |
-| ---------- | --------------- | ----------------- | ----------------- | ----------- |
-| 16         | 128             | 52s               | 16s               | 4s          |
-| 64         | 128             | 3m 2s             | 50s               | 13s         |
-| 256        | 128             | 11m 25s           | 3m 22s            | 54s         |
-| 16         | 512             | 4m 22s            | 1m 1s             | 16s         |
-| 64         | 512             | 17m 51s           | 3m 59s            | 1m 4s       |
-| 256        | 512             | 1h 10m 41s        | 15m 47s           | 4m 10s      |
-
+| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU (32GB) | V100 (16GB) | T4 (16GB) |
+| ---------- | --------------- | ----------------- | ----------------- | ----------- | --------- |
+| 16         | 128             | 52s               | 16s               | 4s          | 10s       |
+| 64         | 128             | 3m 2s             | 50s               | 13s         | 44s       |
+| 256        | 128             | 11m 25s           | 3m 22s            | 54s         | 2m 52s    |
+| 16         | 512             | 4m 22s            | 1m 1s             | 16s         | 54s       |
+| 64         | 512             | 17m 51s           | 3m 59s            | 1m 4s       | 3m 24s    |
+| 256        | 512             | 1h 10m 41s        | 15m 47s           | 4m 10s      | 14m 18s   |
 
 
 # Considerations
@@ -84,7 +84,7 @@ The following tables show the time needed to complete 100 steps without gradient
 - This is the first alpha ever to support the M1 family of processors, so you should expect performance to increase further in the next months since many optimizations will be added to the MPS backed.
 - ~~At the moment I experienced a progressive slowdown with MPS such that the first iteration took more than half the time than the last.~~ (seems solved in latest release)
 - Before deciding whether the M1 Max could be your best choice, consider that it has no `float64` support and neither `fp16` tensor cores.
-- It seems that there is no real limit to the batch size with the M1 Max because it is able to use the swap also for the 'GPU' memory. However, this really slows down training.
+- It seems that there is no real limit to the batch size with the M1 Max because it is able to use the swap also for the 'GPU' memory. However, this really slows down training. Just check how time increases linearly with batch size until the swap is used, after which run time grows exponentially.
 
 
 # FAQ
