@@ -55,28 +55,31 @@ The following tables show the time needed to complete 100 steps without gradient
 
 ### `bert-base-cased`
 
+- M1 Max 32-core (32GB) tested with `1.13.0.dev20220601`
+- M1 Ultra 48-core (64GB) tested with `1.13.0.dev20220604`
+
 **Training**:
 
-| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU (32GB) | V100 (16GB) | T4 (16GB) |
-| ---------- | --------------- | ------------------- | ----------------- | ----------- | --------- |
-| 16         | 128             | 2m 29s              | 1m 3s             | 12s         | 31s       |
-| 64         | 128             | 8m 32s              | 2m 57s            | 41s         | 2m        |
-| 256        | 128             | 50m 10s             | 1h 49m 9s         | -           | -         |
-| 16         | 512             | 11m 22s             | 9m 28s            | 47s         | 2m 25s    |
-| 64         | 512             | 1h 21m 2s           | 3h 26m 4s         | -           | -         |
-| 256        | 512             | 6h 33m 7s           | -                 | -           | -         |
+| Batch size | Sequence length | M1 Max CPU (32GB)   | M1 Max GPU 32-core (32GB) | M1 Ultra 48-core (64GB) | V100 (16GB) | T4 (16GB) |
+| ---------- | --------------- | ------------------- | ------------------------- | ----------------------- | ----------- | --------- |
+| 16         | 128             | 2m 29s              | 1m 3s                     | TBD                     | 12s         | 31s       |
+| 64         | 128             | 8m 32s              | 2m 57s                    | TBD                     | 41s         | 2m        |
+| 256        | 128             | 50m 10s             | 1h 49m 9s                 | TBD                     | -           | -         |
+| 16         | 512             | 11m 22s             | 9m 28s                    | TBD                     | 47s         | 2m 25s    |
+| 64         | 512             | 1h 21m 2s           | 3h 26m 4s                 | TBD                     | -           | -         |
+| 256        | 512             | 6h 33m 7s           | -                         | TBD                     | -           | -         |
 
 
 **Inference**:
 
-| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU (32GB) | V100 (16GB) | T4 (16GB) |
-| ---------- | --------------- | ----------------- | ----------------- | ----------- | --------- |
-| 16         | 128             | 52s               | 16s               | 4s          | 10s       |
-| 64         | 128             | 3m 2s             | 50s               | 13s         | 44s       |
-| 256        | 128             | 11m 25s           | 3m 22s            | 54s         | 2m 52s    |
-| 16         | 512             | 4m 22s            | 1m 1s             | 16s         | 54s       |
-| 64         | 512             | 17m 51s           | 3m 59s            | 1m 4s       | 3m 24s    |
-| 256        | 512             | 1h 10m 41s        | 15m 47s           | 4m 10s      | 14m 18s   |
+| Batch size | Sequence length | M1 Max CPU (32GB) | M1 Max GPU 32-core (32GB) | M1 Ultra 48-core (64GB) | V100 (16GB) | T4 (16GB) |
+| ---------- | --------------- | ----------------- | ------------------------- | ----------------------- | ----------- | --------- |
+| 16         | 128             | 52s               | 16s                       | 9s                      | 4s          | 10s       |
+| 64         | 128             | 3m 2s             | 50s                       | 20s                     | 13s         | 44s       |
+| 256        | 128             | 11m 25s           | 3m 22s                    | 76s                     | 54s         | 2m 52s    |
+| 16         | 512             | 4m 22s            | 1m 1s                     | 24s                     | 16s         | 54s       |
+| 64         | 512             | 17m 51s           | 3m 59s                    | 1m 27s                  | 1m 4s       | 3m 24s    |
+| 256        | 512             | 1h 10m 41s        | 15m 47s                   | 5m 42s                  | 4m 10s      | 14m 18s   |
 
 
 # Considerations
